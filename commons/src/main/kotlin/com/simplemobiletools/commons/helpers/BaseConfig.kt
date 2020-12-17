@@ -268,8 +268,8 @@ open class BaseConfig(val context: Context) {
 
     var isSundayFirst: Boolean
         get() {
-            val isSundayFirst = Calendar.getInstance(Locale.getDefault()).firstDayOfWeek == Calendar.SUNDAY
-            return prefs.getBoolean(SUNDAY_FIRST, isSundayFirst)
+//            val isSundayFirst = Calendar.getInstance(Locale.getDefault()).firstDayOfWeek == Calendar.SUNDAY
+            return prefs.getBoolean(SUNDAY_FIRST, false)
         }
         set(sundayFirst) = prefs.edit().putBoolean(SUNDAY_FIRST, sundayFirst).apply()
 
