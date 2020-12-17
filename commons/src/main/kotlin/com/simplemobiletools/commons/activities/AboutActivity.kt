@@ -40,7 +40,7 @@ class AboutActivity : BaseSimpleActivity() {
         setupFAQ()
         setupUpgradeToPro()
         setupMoreApps()
-        setupRateUs()
+//        setupRateUs()
         setupInvite()
         setupLicense()
         setupFacebook()
@@ -141,28 +141,28 @@ class AboutActivity : BaseSimpleActivity() {
         about_invite.setTextColor(linkColor)
     }
 
-    private fun setupRateUs() {
-        if (baseConfig.appRunCount < 5) {
-            about_rate_us.visibility = View.GONE
-        } else {
-            about_rate_us.setOnClickListener {
-                if (baseConfig.wasBeforeRateShown) {
-                    redirectToRateUs()
-                } else {
-                    baseConfig.wasBeforeRateShown = true
-                    val msg = "${getString(R.string.before_rate_read_faq)}\n\n${getString(R.string.make_sure_latest)}"
-                    ConfirmationAdvancedDialog(this, msg, 0, R.string.read_faq, R.string.skip) {
-                        if (it) {
-                            about_faq_label.performClick()
-                        } else {
-                            about_rate_us.performClick()
-                        }
-                    }
-                }
-            }
-        }
-        about_rate_us.setTextColor(linkColor)
-    }
+//    private fun setupRateUs() {
+//        if (baseConfig.appRunCount < 5) {
+//            about_rate_us.visibility = View.GONE
+//        } else {
+//            about_rate_us.setOnClickListener {
+//                if (baseConfig.wasBeforeRateShown) {
+//                    redirectToRateUs()
+//                } else {
+//                    baseConfig.wasBeforeRateShown = true
+//                    val msg = "${getString(R.string.before_rate_read_faq)}\n\n${getString(R.string.make_sure_latest)}"
+//                    ConfirmationAdvancedDialog(this, msg, 0, R.string.read_faq, R.string.skip) {
+//                        if (it) {
+//                            about_faq_label.performClick()
+//                        } else {
+//                            about_rate_us.performClick()
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        about_rate_us.setTextColor(linkColor)
+//    }
 
     private fun setupLicense() {
         about_license.setOnClickListener {
