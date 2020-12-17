@@ -346,18 +346,19 @@ open class BaseConfig(val context: Context) {
         set(dateFormat) = prefs.edit().putString(DATE_FORMAT, dateFormat).apply()
 
     private fun getDefaultDateFormat(): String {
-        val format = DateFormat.getDateFormat(context)
-        val pattern = (format as SimpleDateFormat).toLocalizedPattern()
-        return when (pattern.toLowerCase().replace(" ", "")) {
-            "dd/mm/y" -> DATE_FORMAT_TWO
-            "mm/dd/y" -> DATE_FORMAT_THREE
-            "y-mm-dd" -> DATE_FORMAT_FOUR
-            "dmmmmy" -> DATE_FORMAT_FIVE
-            "mmmmdy" -> DATE_FORMAT_SIX
-            "mm-dd-y" -> DATE_FORMAT_SEVEN
-            "dd-mm-y" -> DATE_FORMAT_EIGHT
-            else -> DATE_FORMAT_ONE
-        }
+//        val format = DateFormat.getDateFormat(context)
+//        val pattern = (format as SimpleDateFormat).toLocalizedPattern()
+//        return when (pattern.toLowerCase().replace(" ", "")) {
+//            "dd/mm/y" -> DATE_FORMAT_TWO
+//            "mm/dd/y" -> DATE_FORMAT_THREE
+//            "y-mm-dd" -> DATE_FORMAT_FOUR
+//            "dmmmmy" -> DATE_FORMAT_FIVE
+//            "mmmmdy" -> DATE_FORMAT_SIX
+//            "mm-dd-y" -> DATE_FORMAT_SEVEN
+//            "dd-mm-y" -> DATE_FORMAT_EIGHT
+//            else -> DATE_FORMAT_ONE
+//        }
+        return DATE_FORMAT_FOUR
     }
 
     var wasOTGHandled: Boolean
@@ -410,7 +411,7 @@ open class BaseConfig(val context: Context) {
         set(wasMessengerRecorderShown) = prefs.edit().putBoolean(WAS_MESSENGER_RECORDER_SHOWN, wasMessengerRecorderShown).apply()
 
     var defaultTab: Int
-        get() = prefs.getInt(DEFAULT_TAB, TAB_LAST_USED)
+        get() = prefs.getInt(DEFAULT_TAB, TAB_CONTACTS)
         set(defaultTab) = prefs.edit().putInt(DEFAULT_TAB, defaultTab).apply()
 
     var startNameWithSurname: Boolean
