@@ -414,7 +414,7 @@ open class BaseConfig(val context: Context) {
         set(defaultTab) = prefs.edit().putInt(DEFAULT_TAB, defaultTab).apply()
 
     var startNameWithSurname: Boolean
-        get() = prefs.getBoolean(START_NAME_WITH_SURNAME, false)
+        get() = prefs.getBoolean(START_NAME_WITH_SURNAME, true)
         set(startNameWithSurname) = prefs.edit().putBoolean(START_NAME_WITH_SURNAME, startNameWithSurname).apply()
 
     var favorites: MutableSet<String>
