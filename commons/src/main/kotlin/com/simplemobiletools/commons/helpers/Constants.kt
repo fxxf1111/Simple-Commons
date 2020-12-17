@@ -345,7 +345,7 @@ fun isOreoPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
 fun isOreoMr1Plus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
 fun isPiePlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
 fun isQPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-//fun isRPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
+fun isRPlus() = false
 
 fun getDateFormats() = arrayListOf(
     "--MM-dd",
