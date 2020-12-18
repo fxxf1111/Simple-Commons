@@ -15,13 +15,6 @@
         android:required="false"/>
 
     <application>
-        <receiver
-            android:name=".receivers.SharedThemeReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.simplemobiletools.commons.SHARED_THEME_ACTIVATED"/>
-                <action android:name="com.simplemobiletools.commons.SHARED_THEME_UPDATED"/>
-            </intent-filter>
-        </receiver>
+
     </application>
 </manifest>
