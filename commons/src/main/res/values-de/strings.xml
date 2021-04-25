@@ -11,9 +11,9 @@
     <string name="no_app_found">Keine passende App gefunden</string>
     <string name="set_as">Festlegen als</string>
     <string name="copy_to_clipboard">In die Zwischenablage kopieren</string>
-    <string name="copy_number_to_clipboard">Copy number to clipboard</string>
+    <string name="copy_number_to_clipboard">Kopiere die Nummer in die Zwischenablage</string>
     <string name="value_copied_to_clipboard">Wert in Zwischenablage kopiert</string>
-    <string name="dial_number">Dial number</string>
+    <string name="dial_number">Nummer anrufen</string>
     <string name="unknown">Unbekannt</string>
     <string name="always">Immer</string>
     <string name="never">Nie</string>
@@ -213,6 +213,8 @@
     <string name="background_color">Hintergrundfarbe</string>
     <string name="text_color">Schriftfarbe</string>
     <string name="primary_color">Primäre Farbe</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Vordergrundfarbe</string>
     <string name="app_icon_color">App-Icon-Farbe</string>
     <string name="bottom_navigation_bar_color">Farbe der unteren Navigationsleiste</string>
@@ -243,6 +245,7 @@
     <string name="dark_theme">Dunkel</string>
     <string name="solarized">Solarisiert</string>
     <string name="dark_red">Dunkelrot</string>
+    <string name="white">Weiß</string>
     <string name="black_white">Schwarz-Weiß</string>
     <string name="custom">Benutzerdefiniert</string>
     <string name="shared">Geteilt</string>
@@ -258,7 +261,7 @@
     <string name="share">Teilen</string>
     <string name="share_via">Teilen via</string>
     <string name="select_all">Alle auswählen</string>
-    <string name="select_text">Select text</string>
+    <string name="select_text">Text auswählen</string>
     <string name="hide">Verstecken</string>
     <string name="unhide">Nicht verstecken</string>
     <string name="hide_folder">Ordner verstecken</string>
@@ -271,7 +274,11 @@
     <string name="redo">Wiederholen</string>
     <string name="print">Drucken</string>
     <string name="create_shortcut">Verknüpfung erstellen</string>
-    <string name="add_number_to_contact">füge Nummer zu Kontakt hinzu</string>
+    <string name="add_number_to_contact">Füge Nummer zu Kontakt hinzu</string>
+    <string name="view_contact_details">Kontaktdetails anzeigen</string>
+    <string name="call_from_sim_1">Von SIM 1 anrufen</string>
+    <string name="call_from_sim_2">Von SIM 2 anrufen</string>
+    <string name="toggle_filename">Beschriftungen ein/aus</string>
 
     <!-- Sorting -->
     <string name="sort_by">Sortieren nach</string>
@@ -292,8 +299,8 @@
     <string name="middle_name">Zweiter Vorname</string>
     <string name="surname">Nachname</string>
     <string name="full_name">Vollständiger Name</string>
-    <string name="use_custom_sorting">Use custom sorting</string>
-    <string name="change_order">Change order</string>
+    <string name="use_custom_sorting">Nutze benutzerdefiniertes Sortieren</string>
+    <string name="change_order">Reihenfolge ändern</string>
 
     <!-- Confirmation dialog -->
     <string name="proceed_with_deletion">Willst du mit dem Löschen fortfahren?</string>
@@ -338,7 +345,7 @@
     <string name="yesterday">Gestern</string>
     <string name="today">Heute</string>
     <string name="tomorrow">Morgen</string>
-    <string name="hide_year">Hide year</string>
+    <string name="hide_year">Jahr verstecken</string>
     <string name="seconds_raw">Sekunden</string>
     <string name="minutes_raw">Minuten</string>
     <string name="hours_raw">Stunden</string>
@@ -480,12 +487,16 @@
     <string name="your_sounds">Deine Töne</string>
     <string name="add_new_sound">Neuen Ton hinzufügen</string>
     <string name="no_sound">Stumm</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Einstellungen</string>
     <string name="purchase_simple_thank_you">\"Simple Thank You\" App kaufen</string>
     <string name="customize_colors">Farben anpassen</string>
+    <string name="customize_colors_locked">Farben anpassen (Locked)</string>
     <string name="customize_widget_colors">Widget Farben anpassen</string>
+    <string name="customize_notifications">Benachrichtigungen anpassen</string>
     <string name="use_english_language">App in Englisch verwenden</string>
     <string name="show_hidden_items">Versteckte Elemente anzeigen</string>
     <string name="font_size">Schriftgröße</string>
@@ -517,6 +528,7 @@
     <string name="settings_exported_successfully">Einstellungen erfolgreich exportiert</string>
     <string name="settings_imported_successfully">Einstellungen erfolgreich importiert</string>
     <string name="start_name_with_surname">Namen mit Nachnamen beginnen</string>
+    <string name="clear_cache">Cache leeren</string>
 
     <!-- Setting sections -->
     <string name="visibility">Sichtbarkeit</string>
@@ -534,8 +546,8 @@
     <string name="contacts_tab">Kontakte</string>
     <string name="favorites_tab">Favoriten</string>
     <string name="call_history_tab">Anrufliste</string>
-    <string name="groups_tab">Groups</string>
-    <string name="last_used_tab">zuletzt verwendeter Tab</string>
+    <string name="groups_tab">Gruppen</string>
+    <string name="last_used_tab">Zuletzt verwendeter Tab</string>
 
     <!-- Recycle Bin -->
     <string name="restore_this_file">Diese Datei wiederherstellen</string>
@@ -736,7 +748,7 @@
     <string name="faq_4_title_commons">Ich mag die Farben des Widgets nicht. Kann ich sie wechseln?</string>
     <string name="faq_4_text_commons">Ja, wenn du ein Widget auf den Home Screen ziehst, erscheint ein Konfigurationsmenü. In der linken unteren Ecke sind farbige Kästchen, drücke auf sie und wähle eine neue Farbe. Außerdem kannst du den Regler nutzen, um den Alphaparameter (Transparenz) einzustellen.</string>
     <string name="faq_5_title_commons">Kann ich gelöschte Dateien wiederherstellen?</string>
-    <string name="faq_5_text_commons">Wurden die Dateien endgültig gelöst, sind sie verloren. Standardmäßig ist jedoch der Papierkorb aktiviert. Dateien werden dann in den Papierkorb verschoben anstatt gelöscht.
+    <string name="faq_5_text_commons">Wurden die Dateien endgültig gelöscht, sind sie verloren. Standardmäßig ist jedoch der Papierkorb aktiviert. Dateien werden dann in den Papierkorb verschoben anstatt gelöscht.
         Von dort können die Dateien wiederhergestellt werden.</string>
     <string name="faq_6_title_commons">Das App-Icon im Launcher ist verschwunden. Was kann ich tun?</string>
     <string name="faq_6_text_commons">Das passiert, wenn dein Launcher das Anpassen von App-Icons nicht richtig unterstützt. Versuche die App über Google Play oder ein Widget (wenn verfügbar) zu starten.
@@ -748,12 +760,12 @@
         Du kannst die Pro Version auf Google Play für einen kleinen Betrag kaufen. Dies ist eine Einmalzahlung. Auch nach einem Gerätewechsel kannst du weiter die Pro Version nutzen ohne erneute dafür bezahlen zu müssen.
         Sollte Dir die Pro Version nicht gefallen, kannst Du sie einfach innerhalb einiger Stunden deinstallieren und wirst Dein Geld automatisch zurück erhalten.
         Möchtest du zu einem späteren Zeitpunkt dein Geld erstattet bekommen, dann kontaktiere uns einfach unter hello@simplemobiletools.com und du wirst sie bekommen.</string>
-    <string name="faq_9_title_commons">How can I select multiple items at once?</string>
-    <string name="faq_9_text_commons">There are multiple ways of doing that. The first one is starting the selection mode by long pressing one item, then short clicking on others to select them. The second way is similar to selecting items on PCs with a mouse,
-        just start the selection mode by long pressing one item, then with your finger still down drag it across other items for selecting. The third way of selecting multiple items is long pressing one item, then long pressing another one and everything in between gets selected. If you
-        want to select all items, just long press one item, then click at the selected item counter at the top left corner. That will select or unselect all everything.</string>
-    <string name="faq_10_title_commons">I have purchased the app, but I cannot download it on another device.</string>
-    <string name="faq_10_text_commons">Try clearing your Google Play app cache and restarting your device. It is some Google Play glitch, not really related to the app itself.</string>
+    <string name="faq_9_title_commons">Wie kann ich mehrere Elemente auf einmal auswählen?</string>
+    <string name="faq_9_text_commons">Es gibt mehrere Möglichkeiten, dies zu tun. Die Erste ist den Auswahlmodus durch langes Drücken eines Elements zu starten und anschließend die anderen Elemente durch kurzes Antippen auszuwählen. Die zweite Möglichkeit ähnelt dem Auswählen von Elementen auf PCs mit einer Maus: 
+        Starte den Auswahlmodus durch langes Drücken eines Elements und streiche, ohne den Finger vom Display abzuheben, über die anderen Elemente um sie auszuwählen. Die dritte Möglichkeit, mehrere Elemente auszuwählen, besteht darin nacheinander zwei Elemente lang zu drücken und dadurch auch alles dazwischen auszuwählen. 
+        Wenn du alle Elemente auswählen möchtest, drücke einfach lange auf ein beliebiges Element und tippe dann auf den Zähler für ausgewählte Elemente in der oberen linken Ecke. Durch Antippen des Zählers wird alles aus- oder abgewählt.</string>
+    <string name="faq_10_title_commons">Ich habe die App gekauft, kann sie aber nicht auf ein anderes Gerät herunterladen.</string>
+    <string name="faq_10_text_commons">Leere den Cache deiner Google Play App und starte dein Gerät neu. Es handelt sich um eine Störung bei Google Play, die nicht wirklich mit der App selbst zusammenhängt.</string>
 
     <!-- Pro comparison (shown in the deprecated free apps) -->
     <string name="why_upgrade">Holen Sie sich jetzt die Pro-Version!</string>
@@ -762,6 +774,7 @@
     <string name="why_upgrade_no_ads">Keine Anzeigen</string>
     <string name="why_upgrade_no_internet_access">Kein Internetzugang</string>
     <string name="why_upgrade_footer">+ 100% Geld-zurück-Garantie</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Fortgeschrittener Fotoeditor</string>
@@ -780,6 +793,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Verbesserte Zusammenführung doppelter Kontakte</string>
     <string name="why_upgrade_font_size_customization">Anpassung der Schriftgröße</string>
     <string name="why_upgrade_private_contact_sharing">Optionaler privater Kontaktaustausch innerhalb unserer Anwendungen</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Checklisten</string>

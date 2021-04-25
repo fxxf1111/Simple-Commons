@@ -2,12 +2,13 @@ package com.simplemobiletools.commons.models
 
 import android.content.Context
 import android.net.Uri
+import com.bumptech.glide.signature.ObjectKey
 import com.simplemobiletools.commons.extensions.*
 import com.simplemobiletools.commons.helpers.*
 import java.io.File
 
 open class FileDirItem(val path: String, val name: String = "", var isDirectory: Boolean = false, var children: Int = 0, var size: Long = 0L, var modified: Long = 0L) :
-        Comparable<FileDirItem> {
+    Comparable<FileDirItem> {
     companion object {
         var sorting = 0
     }
@@ -69,7 +70,7 @@ open class FileDirItem(val path: String, val name: String = "", var isDirectory:
             try {
                 context.contentResolver.openInputStream(Uri.parse(path))?.available()?.toLong() ?: 0L
             } catch (e: Exception) {
-                0L
+                context.getSizeFromContentUri(Uri.parse(path))
             }
         } else {
             File(path).getProperSize(countHidden)
@@ -121,4 +122,16 @@ open class FileDirItem(val path: String, val name: String = "", var isDirectory:
     fun getImageResolution() = path.getImageResolution()
 
     fun getPublicUri(context: Context) = context.getDocumentFile(path)?.uri ?: ""
+
+    fun getSignature(): String {
+        val lastModified = if (modified > 1) {
+            modified
+        } else {
+            File(path).lastModified()
+        }
+
+        return "$path-$lastModified-$size"
+    }
+
+    fun getKey() = ObjectKey(getSignature())
 }

@@ -213,6 +213,8 @@
     <string name="background_color">Колір фону</string>
     <string name="text_color">Колір тексту</string>
     <string name="primary_color">Первинний колір</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Колір переднього плану</string>
     <string name="app_icon_color">Колір піктограми додатка</string>
     <string name="bottom_navigation_bar_color">Колір нижньої навігаційної панелі</string>
@@ -243,6 +245,7 @@
     <string name="dark_theme">Темна</string>
     <string name="solarized">Солярис</string>
     <string name="dark_red">Темно-червоний</string>
+    <string name="white">White</string>
     <string name="black_white">Чорний &amp; Білий</string>
     <string name="custom">Користувацька</string>
     <string name="shared">Загальна</string>
@@ -272,6 +275,10 @@
     <string name="print">Друкувати</string>
     <string name="create_shortcut">Створити посилання</string>
     <string name="add_number_to_contact">Додати номер до контактів</string>
+    <string name="view_contact_details">View contact details</string>
+    <string name="call_from_sim_1">Call from SIM 1</string>
+    <string name="call_from_sim_2">Call from SIM 2</string>
+    <string name="toggle_filename">Перемкнути відображення імені файлу</string>
 
     <!-- Sorting -->
     <string name="sort_by">Сортувати за</string>
@@ -480,12 +487,16 @@
     <string name="your_sounds">Ваші звуки</string>
     <string name="add_new_sound">Додати новий звук</string>
     <string name="no_sound">Без звуку</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Налаштування</string>
     <string name="purchase_simple_thank_you">Придбати Simple Thank You</string>
     <string name="customize_colors">Налаштувати кольори</string>
+    <string name="customize_colors_locked">Налаштувати кольори (Locked)</string>
     <string name="customize_widget_colors">Налаштувати кольори віджета</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">Використовувати англійську (Use English language)</string>
     <string name="show_hidden_items">Показати приховані елементи</string>
     <string name="font_size">Розмір шрифту</string>
@@ -517,6 +528,7 @@
     <string name="settings_exported_successfully">Налаштування успішно експортовано</string>
     <string name="settings_imported_successfully">Налаштування успішно імпортовано</string>
     <string name="start_name_with_surname">Показувати спочатку прізвище</string>
+    <string name="clear_cache">Clear cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">Відображення</string>
@@ -761,6 +773,7 @@
     <string name="why_upgrade_no_ads">Жодної реклами</string>
     <string name="why_upgrade_no_internet_access">Без доступу до Інтернету</string>
     <string name="why_upgrade_footer">+ 100% гарантія повернення коштів</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Удосконалений фоторедактор</string>
@@ -779,6 +792,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Удосконалена функція злиття контактів</string>
     <string name="why_upgrade_font_size_customization">Налаштування розміру шрифту</string>
     <string name="why_upgrade_private_contact_sharing">Додатковий обмін конфіденційними контактами в наших</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Контрольні списки</string>

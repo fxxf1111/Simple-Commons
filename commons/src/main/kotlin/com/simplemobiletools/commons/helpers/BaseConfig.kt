@@ -64,6 +64,10 @@ open class BaseConfig(val context: Context) {
         get() = prefs.getInt(PRIMARY_COLOR, context.resources.getColor(R.color.color_primary))
         set(primaryColor) = prefs.edit().putInt(PRIMARY_COLOR, primaryColor).apply()
 
+    var accentColor: Int
+        get() = prefs.getInt(ACCENT_COLOR, context.resources.getColor(R.color.color_primary))
+        set(accentColor) = prefs.edit().putInt(ACCENT_COLOR, accentColor).apply()
+
     var navigationBarColor: Int
         get() = prefs.getInt(NAVIGATION_BAR_COLOR, INVALID_NAVIGATION_BAR_COLOR)
         set(navigationBarColor) = prefs.edit().putInt(NAVIGATION_BAR_COLOR, navigationBarColor).apply()
@@ -98,6 +102,10 @@ open class BaseConfig(val context: Context) {
     var customPrimaryColor: Int
         get() = prefs.getInt(CUSTOM_PRIMARY_COLOR, primaryColor)
         set(customPrimaryColor) = prefs.edit().putInt(CUSTOM_PRIMARY_COLOR, customPrimaryColor).apply()
+
+    var customAccentColor: Int
+        get() = prefs.getInt(CUSTOM_ACCENT_COLOR, accentColor)
+        set(customAccentColor) = prefs.edit().putInt(CUSTOM_ACCENT_COLOR, customAccentColor).apply()
 
     var customAppIconColor: Int
         get() = prefs.getInt(CUSTOM_APP_ICON_COLOR, appIconColor)
@@ -197,6 +205,11 @@ open class BaseConfig(val context: Context) {
     var isUsingSharedTheme: Boolean
         get() = prefs.getBoolean(IS_USING_SHARED_THEME, false)
         set(isUsingSharedTheme) = prefs.edit().putBoolean(IS_USING_SHARED_THEME, isUsingSharedTheme).apply()
+
+    // used by Simple Thank You, stop using shared Shared Theme if it has been changed in it
+    var shouldUseSharedTheme: Boolean
+        get() = prefs.getBoolean(SHOULD_USE_SHARED_THEME, false)
+        set(shouldUseSharedTheme) = prefs.edit().putBoolean(SHOULD_USE_SHARED_THEME, shouldUseSharedTheme).apply()
 
     var wasCustomThemeSwitchDescriptionShown: Boolean
         get() = prefs.getBoolean(WAS_CUSTOM_THEME_SWITCH_DESCRIPTION_SHOWN, false)

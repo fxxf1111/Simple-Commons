@@ -11,9 +11,9 @@
     <string name="no_app_found">Der blev ikke fundet en gyldig app</string>
     <string name="set_as">Anvend som</string>
     <string name="copy_to_clipboard">Kopier til udklipsholder</string>
-    <string name="copy_number_to_clipboard">Copy number to clipboard</string>
-    <string name="value_copied_to_clipboard">Værdi kopieret til udklipsholder</string>
-    <string name="dial_number">Dial number</string>
+    <string name="copy_number_to_clipboard">Kopier nummeret til udklipsholderen</string>
+    <string name="value_copied_to_clipboard">Værdi kopieret til udklipsholderen</string>
+    <string name="dial_number">Opkaldsnummer</string>
     <string name="unknown">Ukendt</string>
     <string name="always">Altid</string>
     <string name="never">Aldrig</string>
@@ -213,6 +213,8 @@
     <string name="background_color">Baggrundsfarve</string>
     <string name="text_color">Tekstfarve</string>
     <string name="primary_color">Primær farve</string>
+    <string name="accent_color_white">Effektfarve på det hvide udseende</string>
+    <string name="accent_color_black_and_white">Effektfarve på det sorte &amp; hvide udseende</string>
     <string name="foreground_color">Forgrundsfarve</string>
     <string name="app_icon_color">Farve til appens ikon</string>
     <string name="bottom_navigation_bar_color">Farve på nederste navigationslinje</string>
@@ -243,6 +245,7 @@
     <string name="dark_theme">Mørk</string>
     <string name="solarized">Solarized</string>
     <string name="dark_red">Mørkerød</string>
+    <string name="white">Hvid</string>
     <string name="black_white">Sort &amp; hvid</string>
     <string name="custom">Tilpasset</string>
     <string name="shared">Gemt</string>
@@ -258,7 +261,7 @@
     <string name="share">Del</string>
     <string name="share_via">Del via</string>
     <string name="select_all">Vælg alle</string>
-    <string name="select_text">Select text</string>
+    <string name="select_text">Vælg tekst</string>
     <string name="hide">Skjul</string>
     <string name="unhide">Vis</string>
     <string name="hide_folder">Skjul mappe</string>
@@ -272,6 +275,10 @@
     <string name="print">Udskriv</string>
     <string name="create_shortcut">Opret genvej</string>
     <string name="add_number_to_contact">Føj nummer til kontakt</string>
+    <string name="view_contact_details">Vis kontaktoplysninger</string>
+    <string name="call_from_sim_1">Call from SIM 1</string>
+    <string name="call_from_sim_2">Call from SIM 2</string>
+    <string name="toggle_filename">Skift filnavnets synlighed</string>
 
     <!-- Sorting -->
     <string name="sort_by">Sorter efter</string>
@@ -291,9 +298,9 @@
     <string name="first_name">Fornavn</string>
     <string name="middle_name">Mellemnavn</string>
     <string name="surname">Efternavn</string>
-    <string name="full_name">Full name</string>
-    <string name="use_custom_sorting">Use custom sorting</string>
-    <string name="change_order">Change order</string>
+    <string name="full_name">Fulde navn</string>
+    <string name="use_custom_sorting">Brug brugerdefineret rækkefølge</string>
+    <string name="change_order">Skift rækkefølge</string>
 
     <!-- Confirmation dialog -->
     <string name="proceed_with_deletion">Er du sikker på at du vil fortsætte med at slette?</string>
@@ -480,12 +487,16 @@
     <string name="your_sounds">Dine lyde</string>
     <string name="add_new_sound">Tilføj en ny lyd</string>
     <string name="no_sound">Ingen lyd</string>
+    <string name="during_day_at_hh_mm">I løbet af dagen kl. hh:mm</string>
+    <string name="during_day_at">I løbet af dagen kl. %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Indstillinger</string>
     <string name="purchase_simple_thank_you">Køb Simple Thank You</string>
     <string name="customize_colors">Rediger farver</string>
+    <string name="customize_colors_locked">Rediger farver (Låst)</string>
     <string name="customize_widget_colors">Rediger widget-farver</string>
+    <string name="customize_notifications">Tilpas notifikationer</string>
     <string name="use_english_language">Anvend engelsk sprog</string>
     <string name="show_hidden_items">Vis skjulte elementer</string>
     <string name="font_size">Skriftstørrelse</string>
@@ -517,6 +528,7 @@
     <string name="settings_exported_successfully">Indstillinger eksporteret</string>
     <string name="settings_imported_successfully">Indstillinger importeret</string>
     <string name="start_name_with_surname">Start navn med efternavn</string>
+    <string name="clear_cache">Ryd cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">Synlighed</string>
@@ -760,6 +772,7 @@
     <string name="why_upgrade_no_ads">Ingen reklamer</string>
     <string name="why_upgrade_no_internet_access">Ingen internetadgang</string>
     <string name="why_upgrade_footer">+ Fuld tilfredshed eller pengene tilbage</string>
+    <string name="why_upgrade_improved_design">Forbedret design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Avanceret fotoredigering</string>
@@ -778,6 +791,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Forbedret sammenfletning af duplikerede kontakter</string>
     <string name="why_upgrade_font_size_customization">Skræddersyet skriftstørrelse</string>
     <string name="why_upgrade_private_contact_sharing">Mulighed for deling af private kontakter med dine apps</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Kontaktspecifikke ringetoner</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Tjeklister</string>

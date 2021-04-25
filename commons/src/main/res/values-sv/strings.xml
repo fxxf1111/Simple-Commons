@@ -213,6 +213,8 @@
     <string name="background_color">Bakgrundsfärg</string>
     <string name="text_color">Textfärg</string>
     <string name="primary_color">Primär färg</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Förgrundsfärg</string>
     <string name="app_icon_color">Appikonens färg</string>
     <string name="bottom_navigation_bar_color">Navigeringsfältets färg</string>
@@ -243,6 +245,7 @@
     <string name="dark_theme">Mörkt</string>
     <string name="solarized">Solariserat</string>
     <string name="dark_red">Mörkrött</string>
+    <string name="white">White</string>
     <string name="black_white">Svartvitt</string>
     <string name="custom">Anpassat</string>
     <string name="shared">Delat</string>
@@ -272,6 +275,10 @@
     <string name="print">Skriv ut</string>
     <string name="create_shortcut">Skapa genväg</string>
     <string name="add_number_to_contact">Add number to contact</string>
+    <string name="view_contact_details">View contact details</string>
+    <string name="call_from_sim_1">Call from SIM 1</string>
+    <string name="call_from_sim_2">Call from SIM 2</string>
+    <string name="toggle_filename">Visa/dölj filnamn</string>
 
     <!-- Sorting -->
     <string name="sort_by">Sortera efter</string>
@@ -480,12 +487,16 @@
     <string name="your_sounds">Dina ljud</string>
     <string name="add_new_sound">Lägg till ett nytt ljud</string>
     <string name="no_sound">Inget ljud</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Inställningar</string>
     <string name="purchase_simple_thank_you">Köp Simple Thank You</string>
     <string name="customize_colors">Anpassa färger</string>
+    <string name="customize_colors_locked">Anpassa färger (Locked)</string>
     <string name="customize_widget_colors">Anpassa widgetarnas färger</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">Använd engelska</string>
     <string name="show_hidden_items">Visa dolda objekt</string>
     <string name="font_size">Teckenstorlek</string>
@@ -517,6 +528,7 @@
     <string name="settings_exported_successfully">Inställningarna har exporterats</string>
     <string name="settings_imported_successfully">Inställningarna har importerats</string>
     <string name="start_name_with_surname">Visa efternamn först</string>
+    <string name="clear_cache">Clear cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">Synlighet</string>
@@ -761,6 +773,7 @@
     <string name="why_upgrade_no_ads">No ads</string>
     <string name="why_upgrade_no_internet_access">No internet access</string>
     <string name="why_upgrade_footer">+ 100% Money Back Guarantee</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Advanced photo editor</string>
@@ -779,6 +792,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Improved duplicate contact merging</string>
     <string name="why_upgrade_font_size_customization">Font size customization</string>
     <string name="why_upgrade_private_contact_sharing">Optional private contact sharing within our apps</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Checklists</string>

@@ -213,6 +213,8 @@
     <string name="background_color">Háttérszín</string>
     <string name="text_color">Szöveg színe</string>
     <string name="primary_color">Elsődleges szín</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Előtér szín</string>
     <string name="app_icon_color">Alkalmazás ikon színe</string>
     <string name="bottom_navigation_bar_color">Alsó navigációs sáv színe</string>
@@ -242,6 +244,7 @@
     <string name="dark_theme">Sötét</string>
     <string name="solarized">Kiégetett</string>
     <string name="dark_red">Sötét és piros</string>
+    <string name="white">White</string>
     <string name="black_white">Fekete és fehér</string>
     <string name="custom">Egyéni</string>
     <string name="shared">Megosztva</string>
@@ -271,6 +274,10 @@
     <string name="print">Nyomtatás</string>
     <string name="create_shortcut">Parancsikon készítése</string>
     <string name="add_number_to_contact">Add number to contact</string>
+    <string name="view_contact_details">View contact details</string>
+    <string name="call_from_sim_1">Call from SIM 1</string>
+    <string name="call_from_sim_2">Call from SIM 2</string>
+    <string name="toggle_filename">Fájlnév láthatóság módosítása</string>
 
     <!-- Sorting -->
     <string name="sort_by">Rendezés</string>
@@ -479,12 +486,16 @@
     <string name="your_sounds">Saját hangok</string>
     <string name="add_new_sound">Új hang hozzáadása</string>
     <string name="no_sound">Nincs hang</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Beállítások</string>
     <string name="purchase_simple_thank_you">Simple Thank You megvásárlása</string>
     <string name="customize_colors">Színek testreszabása</string>
+    <string name="customize_colors_locked">Színek testreszabása (Locked)</string>
     <string name="customize_widget_colors">Widget színek testreszabása</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">Angol nyelv használata</string>
     <string name="show_hidden_items">Mutassa a rejtett elemeket</string>
     <string name="font_size">Betűméret</string>
@@ -516,6 +527,7 @@
     <string name="settings_exported_successfully">A beállítások exportálása sikerült</string>
     <string name="settings_imported_successfully">A beállítások importálása sikerült</string>
     <string name="start_name_with_surname">Vezetéknév, keresztnév sorrend</string>
+    <string name="clear_cache">Clear cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">Láthatóság</string>
@@ -759,6 +771,7 @@
     <string name="why_upgrade_no_ads">No ads</string>
     <string name="why_upgrade_no_internet_access">No internet access</string>
     <string name="why_upgrade_footer">+ 100% Money Back Guarantee</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Advanced photo editor</string>
@@ -777,6 +790,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Improved duplicate contact merging</string>
     <string name="why_upgrade_font_size_customization">Font size customization</string>
     <string name="why_upgrade_private_contact_sharing">Optional private contact sharing within our apps</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Checklists</string>

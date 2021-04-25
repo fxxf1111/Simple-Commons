@@ -184,6 +184,7 @@ class FilePickerDialog(val activity: BaseSimpleActivity,
                 filepicker_fastscroller.updateBubbleText(sortedItems.getOrNull(it)?.getBubbleText(context, mDateFormat, mTimeFormat) ?: "")
             }
 
+            filepicker_list.scheduleLayoutAnimation()
             layoutManager.onRestoreInstanceState(mScrollStates[currPath.trimEnd('/')])
             filepicker_list.onGlobalLayout {
                 filepicker_fastscroller.setScrollToY(filepicker_list.computeVerticalScrollOffset())
@@ -287,7 +288,7 @@ class FilePickerDialog(val activity: BaseSimpleActivity,
 
     override fun breadcrumbClicked(id: Int) {
         if (id == 0) {
-            StoragePickerDialog(activity, currPath, forceShowRoot) {
+            StoragePickerDialog(activity, currPath, forceShowRoot, true) {
                 currPath = it
                 tryUpdateItems()
             }

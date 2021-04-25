@@ -2,7 +2,6 @@ package com.simplemobiletools.commons.dialogs
 
 import android.app.Activity
 import android.content.res.Resources
-import android.media.ExifInterface
 import android.net.Uri
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -10,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.exifinterface.media.ExifInterface
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.activities.BaseSimpleActivity
 import com.simplemobiletools.commons.extensions.*
@@ -253,10 +253,14 @@ class PropertiesDialog() {
     }
 
     private fun addProperty(labelId: Int, value: String?, viewId: Int = 0) {
-        if (value == null)
+        if (value == null) {
             return
+        }
 
         mInflater.inflate(R.layout.property_item, mPropertyView, false).apply {
+            property_value.setTextColor(mActivity.baseConfig.textColor)
+            property_label.setTextColor(mActivity.baseConfig.textColor)
+
             property_label.text = mResources.getString(labelId)
             property_value.text = value
             mPropertyView.properties_holder.addView(this)

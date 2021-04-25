@@ -1,7 +1,9 @@
 package com.simplemobiletools.commons.extensions
 
 import android.app.Activity
+import android.app.TimePickerDialog
 import android.content.*
+import android.content.Intent.EXTRA_STREAM
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
@@ -72,7 +74,7 @@ fun Activity.appLaunched(appId: String) {
     }
 
     baseConfig.appRunCount++
-//    if (baseConfig.appRunCount % 50 == 0 && !isAProApp()) {
+//    if (baseConfig.appRunCount % 30 == 0 && !isAProApp()) {
 //        showDonateOrUpgradeDialog()
 //    }
 
@@ -89,7 +91,7 @@ fun Activity.appLaunched(appId: String) {
 fun Activity.showDonateOrUpgradeDialog() {
 //    if (getCanAppBeUpgraded()) {
 //        UpgradeToProDialog(this)
-//    } else if (!baseConfig.hadThankYouInstalled && !isThankYouInstalled()) {
+//    } else if (!isOrWasThankYouInstalled()) {
 //        DonateDialog(this)
 //    }
 }
@@ -108,14 +110,18 @@ fun BaseSimpleActivity.isShowingSAFDialog(path: String): Boolean {
                 WritePermissionDialog(this, false) {
                     Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
                         putExtra("android.content.extra.SHOW_ADVANCED", true)
-                        if (resolveActivity(packageManager) == null) {
+                        try {
+                            startActivityForResult(this, OPEN_DOCUMENT_TREE)
+                            checkedDocumentPath = path
+                            return@apply
+                        } catch (e: Exception) {
                             type = "*/*"
                         }
 
-                        if (resolveActivity(packageManager) != null) {
-                            checkedDocumentPath = path
+                        try {
                             startActivityForResult(this, OPEN_DOCUMENT_TREE)
-                        } else {
+                            checkedDocumentPath = path
+                        } catch (e: Exception) {
                             toast(R.string.unknown_error_occurred)
                         }
                     }
@@ -142,14 +148,18 @@ fun BaseSimpleActivity.showOTGPermissionDialog(path: String) {
         if (!isDestroyed && !isFinishing) {
             WritePermissionDialog(this, true) {
                 Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-                    if (resolveActivity(packageManager) == null) {
+                    try {
+                        startActivityForResult(this, OPEN_DOCUMENT_TREE_OTG)
+                        checkedDocumentPath = path
+                        return@apply
+                    } catch (e: Exception) {
                         type = "*/*"
                     }
 
-                    if (resolveActivity(packageManager) != null) {
-                        checkedDocumentPath = path
+                    try {
                         startActivityForResult(this, OPEN_DOCUMENT_TREE_OTG)
-                    } else {
+                        checkedDocumentPath = path
+                    } catch (e: Exception) {
                         toast(R.string.unknown_error_occurred)
                     }
                 }
@@ -179,11 +189,7 @@ fun Activity.launchViewIntent(id: Int) = launchViewIntent(getString(id))
 fun Activity.launchViewIntent(url: String) {
     ensureBackgroundThread {
         Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+            launchActivityIntent(this)
         }
     }
 }
@@ -201,22 +207,23 @@ fun Activity.sharePathIntent(path: String, applicationId: String) {
         val newUri = getFinalUriFromPath(path, applicationId) ?: return@ensureBackgroundThread
         Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_STREAM, newUri)
+            putExtra(EXTRA_STREAM, newUri)
+            clipData = ClipData.newRawUri(null, newUri)
             type = getUriMimeType(path, newUri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
             try {
-                if (resolveActivity(packageManager) != null) {
-                    startActivity(Intent.createChooser(this, getString(R.string.share_via)))
-                } else {
-                    toast(R.string.no_app_found)
-                }
+                startActivity(Intent.createChooser(this, getString(R.string.share_via)))
+            } catch (e: ActivityNotFoundException) {
+                toast(R.string.no_app_found)
             } catch (e: RuntimeException) {
                 if (e.cause is TransactionTooLargeException) {
                     toast(R.string.maximum_share_reached)
                 } else {
                     showErrorToast(e)
                 }
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -243,20 +250,20 @@ fun Activity.sharePathsIntent(paths: List<String>, applicationId: String) {
                 action = Intent.ACTION_SEND_MULTIPLE
                 type = mimeType
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                putParcelableArrayListExtra(Intent.EXTRA_STREAM, newUris)
+                putParcelableArrayListExtra(EXTRA_STREAM, newUris)
 
                 try {
-                    if (resolveActivity(packageManager) != null) {
-                        startActivity(Intent.createChooser(this, getString(R.string.share_via)))
-                    } else {
-                        toast(R.string.no_app_found)
-                    }
+                    startActivity(Intent.createChooser(this, getString(R.string.share_via)))
+                } catch (e: ActivityNotFoundException) {
+                    toast(R.string.no_app_found)
                 } catch (e: RuntimeException) {
                     if (e.cause is TransactionTooLargeException) {
                         toast(R.string.maximum_share_reached)
                     } else {
                         showErrorToast(e)
                     }
+                } catch (e: Exception) {
+                    showErrorToast(e)
                 }
             }
         }
@@ -271,17 +278,17 @@ fun Activity.shareTextIntent(text: String) {
             putExtra(Intent.EXTRA_TEXT, text)
 
             try {
-                if (resolveActivity(packageManager) != null) {
-                    startActivity(Intent.createChooser(this, getString(R.string.share_via)))
-                } else {
-                    toast(R.string.no_app_found)
-                }
+                startActivity(Intent.createChooser(this, getString(R.string.share_via)))
+            } catch (e: ActivityNotFoundException) {
+                toast(R.string.no_app_found)
             } catch (e: RuntimeException) {
                 if (e.cause is TransactionTooLargeException) {
                     toast(R.string.maximum_share_reached)
                 } else {
                     showErrorToast(e)
                 }
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -296,10 +303,12 @@ fun Activity.setAsIntent(path: String, applicationId: String) {
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             val chooser = Intent.createChooser(this, getString(R.string.set_as))
 
-            if (resolveActivity(packageManager) != null) {
+            try {
                 startActivityForResult(chooser, REQUEST_SET_AS)
-            } else {
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -328,15 +337,13 @@ fun Activity.openEditorIntent(path: String, forceChooser: Boolean, applicationId
             putExtra(MediaStore.EXTRA_OUTPUT, outputUri)
             putExtra(REAL_FILE_PATH, path)
 
-            if (resolveActivity(packageManager) != null) {
-                try {
-                    val chooser = Intent.createChooser(this, getString(R.string.edit_with))
-                    startActivityForResult(if (forceChooser) chooser else this, REQUEST_EDIT_IMAGE)
-                } catch (e: SecurityException) {
-                    showErrorToast(e)
-                }
-            } else {
+            try {
+                val chooser = Intent.createChooser(this, getString(R.string.edit_with))
+                startActivityForResult(if (forceChooser) chooser else this, REQUEST_EDIT_IMAGE)
+            } catch (e: ActivityNotFoundException) {
                 toast(R.string.no_app_found)
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -361,17 +368,15 @@ fun Activity.openPathIntent(path: String, forceChooser: Boolean, applicationId: 
 
             putExtra(REAL_FILE_PATH, path)
 
-            if (resolveActivity(packageManager) != null) {
+            try {
                 val chooser = Intent.createChooser(this, getString(R.string.open_with))
-                try {
-                    startActivity(if (forceChooser) chooser else this)
-                } catch (e: NullPointerException) {
-                    showErrorToast(e)
-                }
-            } else {
+                startActivity(if (forceChooser) chooser else this)
+            } catch (e: ActivityNotFoundException) {
                 if (!tryGenericMimeType(this, mimeType, newUri)) {
                     toast(R.string.no_app_found)
                 }
+            } catch (e: Exception) {
+                showErrorToast(e)
             }
         }
     }
@@ -381,15 +386,7 @@ fun Activity.launchViewContactIntent(uri: Uri) {
     Intent().apply {
         action = ContactsContract.QuickContact.ACTION_QUICK_CONTACT
         data = uri
-        if (resolveActivity(packageManager) != null) {
-            try {
-                startActivity(this)
-            } catch (e: Exception) {
-                showErrorToast(e)
-            }
-        } else {
-            toast(R.string.no_app_found)
-        }
+        launchActivityIntent(this)
     }
 }
 
@@ -403,12 +400,15 @@ fun BaseSimpleActivity.launchCallIntent(recipient: String, handle: PhoneAccountH
                 putExtra(TelecomManager.EXTRA_PHONE_ACCOUNT_HANDLE, handle)
             }
 
-            if (resolveActivity(packageManager) != null) {
-                startActivity(this)
-            } else {
-                toast(R.string.no_app_found)
-            }
+            launchActivityIntent(this)
         }
+    }
+}
+
+fun Activity.launchSendSMSIntent(recipient: String) {
+    Intent(Intent.ACTION_SENDTO).apply {
+        data = Uri.fromParts("smsto", recipient, null)
+        launchActivityIntent(this)
     }
 }
 
@@ -417,12 +417,7 @@ fun Activity.showLocationOnMap(coordinates: String) {
     val encodedQuery = Uri.encode(coordinates)
     val uriString = "$uriBegin?q=$encodedQuery&z=16"
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uriString))
-    val packageManager = packageManager
-    if (intent.resolveActivity(packageManager) != null) {
-        startActivity(intent)
-    } else {
-        toast(R.string.no_app_found)
-    }
+    launchActivityIntent(intent)
 }
 
 fun Activity.getFinalUriFromPath(path: String, applicationId: String): Uri? {
@@ -448,10 +443,11 @@ fun Activity.tryGenericMimeType(intent: Intent, mimeType: String, uri: Uri): Boo
     }
 
     intent.setDataAndType(uri, genericMimeType)
-    return if (intent.resolveActivity(packageManager) != null) {
+
+    return try {
         startActivity(intent)
         true
-    } else {
+    } catch (e: Exception) {
         false
     }
 }
@@ -591,9 +587,18 @@ fun BaseSimpleActivity.deleteFileBg(fileDirItem: FileDirItem, allowDeleteFolder:
 
     var fileDeleted = !isPathOnOTG(path) && ((!file.exists() && file.length() == 0L) || file.delete())
     if (fileDeleted) {
-        deleteFromMediaStore(path)
-        runOnUiThread {
-            callback?.invoke(true)
+        deleteFromMediaStore(path) { needsRescan ->
+            if (needsRescan) {
+                rescanAndDeletePath(path) {
+                    runOnUiThread {
+                        callback?.invoke(true)
+                    }
+                }
+            } else {
+                runOnUiThread {
+                    callback?.invoke(true)
+                }
+            }
         }
     } else {
         if (getIsPathDirectory(file.absolutePath) && allowDeleteFolder) {
@@ -899,21 +904,16 @@ fun Activity.updateSharedTheme(sharedTheme: SharedTheme) {
     }
 }
 
-fun Activity.copyToClipboard(text: String) {
-    val clip = ClipData.newPlainText(getString(R.string.simple_commons), text)
-    (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
-    toast(R.string.value_copied_to_clipboard)
-}
-
 fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0, titleText: String = "", callback: (() -> Unit)? = null) {
     if (isDestroyed || isFinishing) {
         return
     }
 
+    val adjustedPrimaryColor = getAdjustedPrimaryColor()
     if (view is ViewGroup)
         updateTextColors(view)
     else if (view is MyTextView) {
-        view.setColors(baseConfig.textColor, getAdjustedPrimaryColor(), baseConfig.backgroundColor)
+        view.setColors(baseConfig.textColor, adjustedPrimaryColor, baseConfig.backgroundColor)
     }
 
     var title: TextView? = null
@@ -935,9 +935,9 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
         setCustomTitle(title)
         setCanceledOnTouchOutside(true)
         show()
-        getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(baseConfig.textColor)
-        getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(baseConfig.textColor)
-        getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(baseConfig.textColor)
+        getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(adjustedPrimaryColor)
+        getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(adjustedPrimaryColor)
+        getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(adjustedPrimaryColor)
 
         val bgDrawable = resources.getColoredDrawableWithColor(R.drawable.dialog_bg, baseConfig.backgroundColor)
         window?.setBackgroundDrawable(bgDrawable)
@@ -945,13 +945,13 @@ fun Activity.setupDialogStuff(view: View, dialog: AlertDialog, titleId: Int = 0,
     callback?.invoke()
 }
 
-fun Activity.showPickSecondsDialogHelper(curMinutes: Int, isSnoozePicker: Boolean = false, showSecondsAtCustomDialog: Boolean = false,
+fun Activity.showPickSecondsDialogHelper(curMinutes: Int, isSnoozePicker: Boolean = false, showSecondsAtCustomDialog: Boolean = false, showDuringDayOption: Boolean = false,
                                          cancelCallback: (() -> Unit)? = null, callback: (seconds: Int) -> Unit) {
-    val seconds = if (curMinutes > 0) curMinutes * 60 else curMinutes
-    showPickSecondsDialog(seconds, isSnoozePicker, showSecondsAtCustomDialog, cancelCallback, callback)
+    val seconds = if (curMinutes == -1) curMinutes else curMinutes * 60
+    showPickSecondsDialog(seconds, isSnoozePicker, showSecondsAtCustomDialog, showDuringDayOption, cancelCallback, callback)
 }
 
-fun Activity.showPickSecondsDialog(curSeconds: Int, isSnoozePicker: Boolean = false, showSecondsAtCustomDialog: Boolean = false,
+fun Activity.showPickSecondsDialog(curSeconds: Int, isSnoozePicker: Boolean = false, showSecondsAtCustomDialog: Boolean = false, showDuringDayOption: Boolean = false,
                                    cancelCallback: (() -> Unit)? = null, callback: (seconds: Int) -> Unit) {
     hideKeyboard()
     val seconds = TreeSet<Int>()
@@ -982,13 +982,25 @@ fun Activity.showPickSecondsDialog(curSeconds: Int, isSnoozePicker: Boolean = fa
 
     items.add(RadioItem(-2, getString(R.string.custom)))
 
+    if (showDuringDayOption) {
+        items.add(RadioItem(-3, getString(R.string.during_day_at_hh_mm)))
+    }
+
     RadioGroupDialog(this, items, selectedIndex, showOKButton = isSnoozePicker, cancelCallback = cancelCallback) {
-        if (it == -2) {
-            CustomIntervalPickerDialog(this, showSeconds = showSecondsAtCustomDialog) {
-                callback(it)
+        when (it) {
+            -2 -> {
+                CustomIntervalPickerDialog(this, showSeconds = showSecondsAtCustomDialog) {
+                    callback(it)
+                }
             }
-        } else {
-            callback(it as Int)
+            -3 -> {
+                TimePickerDialog(this, getDialogTheme(),
+                    { view, hourOfDay, minute -> callback(hourOfDay * -3600 + minute * -60) },
+                    curSeconds / 3600, curSeconds % 3600, baseConfig.use24HourFormat).show()
+            }
+            else -> {
+                callback(it as Int)
+            }
         }
     }
 }
@@ -996,16 +1008,13 @@ fun Activity.showPickSecondsDialog(curSeconds: Int, isSnoozePicker: Boolean = fa
 fun BaseSimpleActivity.getAlarmSounds(type: Int, callback: (ArrayList<AlarmSound>) -> Unit) {
     val alarms = ArrayList<AlarmSound>()
     val manager = RingtoneManager(this)
-    manager.setType(if (type == ALARM_SOUND_TYPE_NOTIFICATION) RingtoneManager.TYPE_NOTIFICATION else RingtoneManager.TYPE_ALARM)
+    manager.setType(type)
 
     try {
         val cursor = manager.cursor
         var curId = 1
         val silentAlarm = AlarmSound(curId++, getString(R.string.no_sound), SILENT)
         alarms.add(silentAlarm)
-
-        val defaultAlarm = getDefaultAlarmSound(type)
-        alarms.add(defaultAlarm)
 
         while (cursor.moveToNext()) {
             val title = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX)

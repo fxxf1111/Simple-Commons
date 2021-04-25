@@ -11,9 +11,9 @@
     <string name="no_app_found">Ez da baliozko aplikaziorik aurkitu</string>
     <string name="set_as">Ezarri honela...</string>
     <string name="copy_to_clipboard">Kopiatu arbelera</string>
-    <string name="copy_number_to_clipboard">Copy number to clipboard</string>
+    <string name="copy_number_to_clipboard">Kopiatu zenbakia arbelera</string>
     <string name="value_copied_to_clipboard">Balioa arbelera kopiatu da</string>
-    <string name="dial_number">Dial number</string>
+    <string name="dial_number">Markatzeko zenbakia</string>
     <string name="unknown">Ezezaguna</string>
     <string name="always">Beti</string>
     <string name="never">Inoiz ez</string>
@@ -38,13 +38,13 @@
     <string name="insert_text_here">Txertatu testua hemen</string>
 
     <!-- View types -->
-    <string name="change_view_type">Change view type</string>
-    <string name="grid">Grid</string>
-    <string name="list">List</string>
+    <string name="change_view_type">Aldatu ikuspegi mota</string>
+    <string name="grid">Sareta</string>
+    <string name="list">Zerrenda</string>
     <string name="increase_column_count">Increase column count</string>
     <string name="reduce_column_count">Reduce column count</string>
     <string name="change_cover_image">Change cover image</string>
-    <string name="select_photo">Select photo</string>
+    <string name="select_photo">Hautatu argazkia</string>
 
     <!-- Blocked numbers -->
     <string name="manage_blocked_numbers">Kudeatu blokeatutako zenbakiak</string>
@@ -212,7 +212,9 @@
     <!-- Color customization -->
     <string name="background_color">Hondoaren kolorea</string>
     <string name="text_color">Testuaren kolorea</string>
-    <string name="primary_color">Kolore nagutia</string>
+    <string name="primary_color">Kolore nagusia</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Aurreko planoaren kolorea</string>
     <string name="app_icon_color">Aplikazioaren ikonoaren kolorea</string>
     <string name="bottom_navigation_bar_color">Beheko nabigazio-barraren kolorea</string>
@@ -243,6 +245,7 @@
     <string name="dark_theme">Iluna</string>
     <string name="solarized">Eguzkitsua</string>
     <string name="dark_red">Gorri iluna</string>
+    <string name="white">White</string>
     <string name="black_white">Zuri-beltza</string>
     <string name="custom">Pertsonalizatuta</string>
     <string name="shared">Partekatuta</string>
@@ -258,7 +261,7 @@
     <string name="share">Partekatu</string>
     <string name="share_via">Partekatu honen bidez:</string>
     <string name="select_all">Hautatu denak</string>
-    <string name="select_text">Select text</string>
+    <string name="select_text">Hautatu testua</string>
     <string name="hide">Ezkutatu</string>
     <string name="unhide">Erakutsi</string>
     <string name="hide_folder">Ezkutatu karpeta</string>
@@ -272,6 +275,10 @@
     <string name="print">Inprimatu</string>
     <string name="create_shortcut">Sortu lasterbidea</string>
     <string name="add_number_to_contact">Gehitu zenbakia kontaktura</string>
+    <string name="view_contact_details">Ikusi kontaktuaren xehetasunak</string>
+    <string name="call_from_sim_1">Deitu 1. SIMetik</string>
+    <string name="call_from_sim_2">Deitu 2. SIMetik</string>
+    <string name="toggle_filename">Aldatu fitxategi-izenaren ikusgaitasuna</string>
 
     <!-- Sorting -->
     <string name="sort_by">Ordenatze-irizpidea</string>
@@ -293,7 +300,7 @@
     <string name="surname">Abizena</string>
     <string name="full_name">Izen-abizenak</string>
     <string name="use_custom_sorting">Use custom sorting</string>
-    <string name="change_order">Change order</string>
+    <string name="change_order">Aldatu ordena</string>
 
     <!-- Confirmation dialog -->
     <string name="proceed_with_deletion">Ziur zaude ezabatzearekin jarraitu nahi duzula?</string>
@@ -480,12 +487,16 @@
     <string name="your_sounds">Zure soinuak</string>
     <string name="add_new_sound">Gehitu soinu berria</string>
     <string name="no_sound">Soinurik ez</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Ezarpenak</string>
     <string name="purchase_simple_thank_you">Erosi Simple Thank You</string>
     <string name="customize_colors">Pertsonalizatu koloreak</string>
+    <string name="customize_colors_locked">Pertsonalizatu koloreak (Locked)</string>
     <string name="customize_widget_colors">Pertsonalizatu widgeten koloreak</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">Erabili ingeles hizkuntza</string>
     <string name="show_hidden_items">Erakutsi ezkutatutako elementuak</string>
     <string name="font_size">Letra-tamaina</string>
@@ -516,7 +527,8 @@
     <string name="import_settings">Inportatu ezarpenak</string>
     <string name="settings_exported_successfully">Ezarpenak ondo esportatu dira</string>
     <string name="settings_imported_successfully">Ezarpenak ondo inportatu dira</string>
-    <string name="start_name_with_surname">Hasi izane abizenarekin</string>
+    <string name="start_name_with_surname">Hasi izen-abizenarekin</string>
+    <string name="clear_cache">Garbitu cachea</string>
 
     <!-- Setting sections -->
     <string name="visibility">Ikusgaitasuna</string>
@@ -525,9 +537,9 @@
     <string name="file_operations">Fitxategi-operazioak</string>
     <string name="recycle_bin">Zakarrontzia</string>
     <string name="saving_label">Gordetzen</string>
-    <string name="startup">Startup</string>
-    <string name="text">Text</string>
-    <string name="migrating">Migrating</string>
+    <string name="startup">Abioa</string>
+    <string name="text">Testua</string>
+    <string name="migrating">Migratzea</string>
 
     <!-- Default tabs to open -->
     <string name="default_tab_to_open">Aplikazioa hasterakoan irekiko den fitxa</string>
@@ -761,6 +773,7 @@
     <string name="why_upgrade_no_ads">No ads</string>
     <string name="why_upgrade_no_internet_access">No internet access</string>
     <string name="why_upgrade_footer">+ 100% Money Back Guarantee</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Advanced photo editor</string>
@@ -779,6 +792,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Improved duplicate contact merging</string>
     <string name="why_upgrade_font_size_customization">Font size customization</string>
     <string name="why_upgrade_private_contact_sharing">Optional private contact sharing within our apps</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Checklists</string>

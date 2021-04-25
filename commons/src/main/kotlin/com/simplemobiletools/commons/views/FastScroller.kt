@@ -170,8 +170,8 @@ class FastScroller : FrameLayout {
         hideHandle()
     }
 
-    fun updatePrimaryColor() {
-        handle!!.background.applyColorFilter(context.getAdjustedPrimaryColor())
+    fun updatePrimaryColor(color: Int = context.getAdjustedPrimaryColor()) {
+        handle!!.background.applyColorFilter(color)
         updateBubblePrimaryColor()
     }
 
@@ -181,8 +181,8 @@ class FastScroller : FrameLayout {
         updateBubbleBackgroundColor()
     }
 
-    fun updateBubblePrimaryColor() {
-        getBubbleBackgroundDrawable()?.setStroke(resources.displayMetrics.density.toInt(), context.getAdjustedPrimaryColor())
+    fun updateBubblePrimaryColor(color: Int = context.getAdjustedPrimaryColor()) {
+        getBubbleBackgroundDrawable()?.setStroke(resources.displayMetrics.density.toInt(), color)
     }
 
     fun updateBubbleTextColor() {
@@ -298,14 +298,20 @@ class FastScroller : FrameLayout {
                 val movePercent = diffInMove / (recyclerViewWidth.toFloat() - handleWidth)
                 val target = (recyclerViewContentWidth - recyclerViewWidth) * movePercent
                 val diff = target.toInt() - currScrollX
-                recyclerView!!.scrollBy(diff, 0)
+
+                if (diff != 0) {
+                    recyclerView!!.scrollBy(diff, 0)
+                }
             } else {
                 targetProportion = currScrollY / recyclerViewContentHeight.toFloat()
                 val diffInMove = pos - handleYOffset
                 val movePercent = diffInMove / (recyclerViewHeight.toFloat() - handleHeight)
                 val target = (recyclerViewContentHeight - recyclerViewHeight) * movePercent
                 val diff = target.toInt() - currScrollY
-                recyclerView!!.scrollBy(0, diff)
+
+                if (diff != 0) {
+                    recyclerView!!.scrollBy(0, diff)
+                }
             }
 
             val itemCount = recyclerView!!.adapter!!.itemCount

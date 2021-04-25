@@ -216,6 +216,8 @@
     <string name="background_color">Boja pozadine</string>
     <string name="text_color">Boja teksta</string>
     <string name="primary_color">Primarna boja</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Boja pozadine</string>
     <string name="app_icon_color">Boja ikone aplikacije</string>
     <string name="bottom_navigation_bar_color">Boja donje navigacijske trake</string>
@@ -246,6 +248,7 @@
     <string name="dark_theme">Tamna</string>
     <string name="solarized">Solarizirana</string>
     <string name="dark_red">Tamno crvena</string>
+    <string name="white">White</string>
     <string name="black_white">Crno &amp; Bijelo</string>
     <string name="custom">Prilagođena</string>
     <string name="shared">Dijeljena</string>
@@ -275,6 +278,10 @@
     <string name="print">Print</string>
     <string name="create_shortcut">Create shortcut</string>
     <string name="add_number_to_contact">Add number to contact</string>
+    <string name="view_contact_details">View contact details</string>
+    <string name="call_from_sim_1">Call from SIM 1</string>
+    <string name="call_from_sim_2">Call from SIM 2</string>
+    <string name="toggle_filename">Uključi prikaz naziva datoteka</string>
 
     <!-- Sorting -->
     <string name="sort_by">Sortiraj po</string>
@@ -511,12 +518,16 @@
     <string name="your_sounds">Vaši zvukovi</string>
     <string name="add_new_sound">Dodaj novi zvuk</string>
     <string name="no_sound">Nema zvuka</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Postavke</string>
     <string name="purchase_simple_thank_you">Kupite Jednostavno Hvala</string>
     <string name="customize_colors">Prilagodi boje</string>
+    <string name="customize_colors_locked">Prilagodi boje (Locked)</string>
     <string name="customize_widget_colors">Prilagodi boje widgeta</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">Koristi Engleski jezik</string>
     <string name="show_hidden_items">Prikaži skrivene stavke</string>
     <string name="font_size">Veličina fonta</string>
@@ -548,6 +559,7 @@
     <string name="settings_exported_successfully">Settings exported successfully</string>
     <string name="settings_imported_successfully">Settings imported successfully</string>
     <string name="start_name_with_surname">Započnite imena s prezimenima</string>
+    <string name="clear_cache">Clear cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">Vidljivost</string>
@@ -792,6 +804,7 @@
     <string name="why_upgrade_no_ads">No ads</string>
     <string name="why_upgrade_no_internet_access">No internet access</string>
     <string name="why_upgrade_footer">+ 100% Money Back Guarantee</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Advanced photo editor</string>
@@ -810,6 +823,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Improved duplicate contact merging</string>
     <string name="why_upgrade_font_size_customization">Font size customization</string>
     <string name="why_upgrade_private_contact_sharing">Optional private contact sharing within our apps</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Checklists</string>

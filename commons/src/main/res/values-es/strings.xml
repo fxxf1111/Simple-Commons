@@ -213,6 +213,8 @@
     <string name="background_color">Color del fondo</string>
     <string name="text_color">Color del texto</string>
     <string name="primary_color">Color principal</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">Color de primer plano</string>
     <string name="app_icon_color">Color del icono de la aplicación</string>
     <string name="bottom_navigation_bar_color">Color de la barra de navegación inferior</string>
@@ -243,6 +245,7 @@
     <string name="dark_theme">Oscuro</string>
     <string name="solarized">Solarizado</string>
     <string name="dark_red">Rojo oscuro</string>
+    <string name="white">White</string>
     <string name="black_white">Blanco y negro</string>
     <string name="custom">Personalizado</string>
     <string name="shared">Compartido</string>
@@ -272,6 +275,10 @@
     <string name="print">Imprimir</string>
     <string name="create_shortcut">Crear atajo</string>
     <string name="add_number_to_contact">Anadir el número a contactos</string>
+    <string name="view_contact_details">Ver detalles de contacto</string>
+    <string name="call_from_sim_1">Llamar desde SIM 1</string>
+    <string name="call_from_sim_2">Llamar desde SIM 2</string>
+    <string name="toggle_filename">Cambiar la visibilidad del nombre de archivo</string>
 
     <!-- Sorting -->
     <string name="sort_by">Ordenar por</string>
@@ -480,12 +487,16 @@
     <string name="your_sounds">Tus sonidos</string>
     <string name="add_new_sound">Agrega un nuevo sonido</string>
     <string name="no_sound">Sin sonido</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">Ajustes</string>
     <string name="purchase_simple_thank_you">Comprar Simple Gracias</string>
     <string name="customize_colors">Cambiar colores</string>
+    <string name="customize_colors_locked">Cambiar colores (Locked)</string>
     <string name="customize_widget_colors">Personaliza los colores del widget</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">Usar el idioma Inglés</string>
     <string name="show_hidden_items">Mostrar elementos ocultos</string>
     <string name="font_size">Tamaño de fuente</string>
@@ -517,6 +528,7 @@
     <string name="settings_exported_successfully">Ajustes exportados correctamente</string>
     <string name="settings_imported_successfully">Ajustes importados correctamente</string>
     <string name="start_name_with_surname">Mostrar nombre por apellido</string>
+    <string name="clear_cache">Clear cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">Visibilidad</string>
@@ -761,6 +773,7 @@
     <string name="why_upgrade_no_ads">Sin anuncios</string>
     <string name="why_upgrade_no_internet_access">Sin acceso a Internet</string>
     <string name="why_upgrade_footer">+ 100% de Garantía de Devolución de Dinero</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">Editor de fotos avanzado</string>
@@ -779,6 +792,7 @@
     <string name="why_upgrade_duplicate_contact_merging">Fusión de contactos duplicados mejorada</string>
     <string name="why_upgrade_font_size_customization">Personalización del tamaño de fuente</string>
     <string name="why_upgrade_private_contact_sharing">Uso compartido opcional de contactos privados dentro de nuestras aplicaciones</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">Listas de verificación</string>
@@ -803,7 +817,7 @@
     <string name="cropper_title">Android Image Cropper (Recortador y rotador de imágenes)</string>
     <string name="rtl_viewpager_title">RtlViewPager (Desplazamiento de izquierda a derecha)</string>
     <string name="joda_title">Joda-Time (Remplazo a la fecha de Java)</string>
-    <string name="stetho_title">Stetho (Debugger de bases de datos)</string>
+    <string name="stetho_title">Stetho (Depurador de bases de datos)</string>
     <string name="otto_title">Otto (Bus de eventos)</string>
     <string name="photoview_title">PhotoView (GIFs con zoom)</string>
     <string name="pattern_title">PatternLockView (Protección con patrón)</string>
@@ -814,7 +828,7 @@
     <string name="espresso_title">Espresso (Auxiliar de pruebas)</string>
     <string name="gson_title">Gson (Convertidor de JSON)</string>
     <string name="leak_canary_title">Leak Canary (Detector de falta de memoria)</string>
-    <string name="number_picker_title">Selector de número (Selector de número personalizable)</string>
+    <string name="number_picker_title">Number Picker (Selector de número personalizable)</string>
     <string name="exoplayer_title">ExoPlayer (Reproductor de video)</string>
     <string name="panorama_view_title">VR Panorama View (Mostrador de panoramas)</string>
     <string name="sanselan_title">Apache Sanselan (Lector de metadatos de imagen)</string>

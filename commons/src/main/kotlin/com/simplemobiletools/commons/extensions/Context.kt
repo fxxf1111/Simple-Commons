@@ -12,7 +12,6 @@ import android.content.res.Configuration
 import android.database.Cursor
 import android.graphics.Color
 import android.graphics.Point
-import android.media.ExifInterface
 import android.media.MediaMetadataRetriever
 import android.media.RingtoneManager
 import android.net.Uri
@@ -34,12 +33,14 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.exifinterface.media.ExifInterface
 import androidx.loader.content.CursorLoader
 import com.github.ajalt.reprint.core.Reprint
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.simplemobiletools.commons.R
 import com.simplemobiletools.commons.helpers.*
+import com.simplemobiletools.commons.helpers.MyContentProvider.Companion.COL_ACCENT_COLOR
 import com.simplemobiletools.commons.helpers.MyContentProvider.Companion.COL_APP_ICON_COLOR
 import com.simplemobiletools.commons.helpers.MyContentProvider.Companion.COL_BACKGROUND_COLOR
 import com.simplemobiletools.commons.helpers.MyContentProvider.Companion.COL_LAST_UPDATED_TS
@@ -62,32 +63,31 @@ fun Context.updateTextColors(viewGroup: ViewGroup, tmpTextColor: Int = 0, tmpAcc
     val textColor = if (tmpTextColor == 0) baseConfig.textColor else tmpTextColor
     val backgroundColor = baseConfig.backgroundColor
     val accentColor = if (tmpAccentColor == 0) {
-        if (isBlackAndWhiteTheme()) {
-            Color.WHITE
-        } else {
-            baseConfig.primaryColor
+        when {
+            isWhiteTheme() || isBlackAndWhiteTheme() -> baseConfig.accentColor
+            else -> baseConfig.primaryColor
         }
     } else {
         tmpAccentColor
     }
 
     val cnt = viewGroup.childCount
-    (0 until cnt).map { viewGroup.getChildAt(it) }
-        .forEach {
-            when (it) {
-                is MyTextView -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyAppCompatSpinner -> it.setColors(textColor, accentColor, backgroundColor)
-                is MySwitchCompat -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyCompatRadioButton -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyAppCompatCheckbox -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyEditText -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyAutoCompleteTextView -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyFloatingActionButton -> it.setColors(textColor, accentColor, backgroundColor)
-                is MySeekBar -> it.setColors(textColor, accentColor, backgroundColor)
-                is MyButton -> it.setColors(textColor, accentColor, backgroundColor)
-                is ViewGroup -> updateTextColors(it, textColor, accentColor)
-            }
+    (0 until cnt).map { viewGroup.getChildAt(it) }.forEach {
+        when (it) {
+            is MyTextView -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyAppCompatSpinner -> it.setColors(textColor, accentColor, backgroundColor)
+            is MySwitchCompat -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyCompatRadioButton -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyAppCompatCheckbox -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyEditText -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyAutoCompleteTextView -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyFloatingActionButton -> it.setColors(textColor, accentColor, backgroundColor)
+            is MySeekBar -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyButton -> it.setColors(textColor, accentColor, backgroundColor)
+            is MyTextInputLayout -> it.setColors(textColor, accentColor, backgroundColor)
+            is ViewGroup -> updateTextColors(it, textColor, accentColor)
         }
+    }
 }
 
 fun Context.getLinkTextColor(): Int {
@@ -100,12 +100,11 @@ fun Context.getLinkTextColor(): Int {
 
 fun Context.isBlackAndWhiteTheme() = baseConfig.textColor == Color.WHITE && baseConfig.primaryColor == Color.BLACK && baseConfig.backgroundColor == Color.BLACK
 
-fun Context.getAdjustedPrimaryColor() = if (isBlackAndWhiteTheme()) Color.WHITE else baseConfig.primaryColor
+fun Context.isWhiteTheme() = baseConfig.textColor == DARK_GREY && baseConfig.primaryColor == Color.WHITE && baseConfig.backgroundColor == Color.WHITE
 
-fun Context.getFABIconColor() = if (isBlackAndWhiteTheme()) {
-    Color.BLACK
-} else {
-    baseConfig.primaryColor.getContrastColor()
+fun Context.getAdjustedPrimaryColor() = when {
+    isWhiteTheme() || isBlackAndWhiteTheme() -> baseConfig.accentColor
+    else -> baseConfig.primaryColor
 }
 
 fun Context.toast(id: Int, length: Int = Toast.LENGTH_SHORT) {
@@ -228,19 +227,18 @@ fun Context.getRealPathFromURI(uri: Uri): String? {
 }
 
 fun Context.getDataColumn(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {
-    var cursor: Cursor? = null
     try {
         val projection = arrayOf(Files.FileColumns.DATA)
-        cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
-        if (cursor?.moveToFirst() == true) {
-            val data = cursor.getStringValue(Files.FileColumns.DATA)
-            if (data != "null") {
-                return data
+        val cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                val data = cursor.getStringValue(Files.FileColumns.DATA)
+                if (data != "null") {
+                    return data
+                }
             }
         }
     } catch (e: Exception) {
-    } finally {
-        cursor?.close()
     }
     return null
 }
@@ -270,6 +268,16 @@ fun Context.getPermissionString(id: Int) = when (id) {
     PERMISSION_SEND_SMS -> Manifest.permission.SEND_SMS
     PERMISSION_READ_PHONE_STATE -> Manifest.permission.READ_PHONE_STATE
     else -> ""
+}
+
+fun Context.launchActivityIntent(intent: Intent) {
+    try {
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        toast(R.string.no_app_found)
+    } catch (e: Exception) {
+        showErrorToast(e)
+    }
 }
 
 fun Context.getFilePublicUri(file: File, applicationId: String): Uri {
@@ -302,16 +310,15 @@ fun Context.getMediaContent(path: String, uri: Uri): Uri? {
     val projection = arrayOf(Images.Media._ID)
     val selection = Images.Media.DATA + "= ?"
     val selectionArgs = arrayOf(path)
-    var cursor: Cursor? = null
     try {
-        cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
-        if (cursor?.moveToFirst() == true) {
-            val id = cursor.getIntValue(Images.Media._ID).toString()
-            return Uri.withAppendedPath(uri, id)
+        val cursor = contentResolver.query(uri, projection, selection, selectionArgs, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                val id = cursor.getIntValue(Images.Media._ID).toString()
+                return Uri.withAppendedPath(uri, id)
+            }
         }
     } catch (e: Exception) {
-    } finally {
-        cursor?.close()
     }
     return null
 }
@@ -385,17 +392,34 @@ fun Context.ensurePublicUri(uri: Uri, applicationId: String): Uri {
 }
 
 fun Context.getFilenameFromContentUri(uri: Uri): String? {
-    var cursor: Cursor? = null
+    val projection = arrayOf(
+        OpenableColumns.DISPLAY_NAME
+    )
+
     try {
-        cursor = contentResolver.query(uri, null, null, null, null)
-        if (cursor?.moveToFirst() == true) {
-            return cursor.getStringValue(OpenableColumns.DISPLAY_NAME)
+        val cursor = contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                return cursor.getStringValue(OpenableColumns.DISPLAY_NAME)
+            }
         }
     } catch (e: Exception) {
-    } finally {
-        cursor?.close()
     }
     return null
+}
+
+fun Context.getSizeFromContentUri(uri: Uri): Long {
+    val projection = arrayOf(OpenableColumns.SIZE)
+    try {
+        val cursor = contentResolver.query(uri, projection, null, null, null)
+        cursor?.use {
+            if (cursor.moveToFirst()) {
+                return cursor.getLongValue(OpenableColumns.SIZE)
+            }
+        }
+    } catch (e: Exception) {
+    }
+    return 0L
 }
 
 fun Context.getSharedTheme(callback: (sharedTheme: SharedTheme?) -> Unit) {
@@ -413,13 +437,17 @@ fun Context.getSharedThemeSync(cursorLoader: CursorLoader): SharedTheme? {
     val cursor = cursorLoader.loadInBackground()
     cursor?.use {
         if (cursor.moveToFirst()) {
-            val textColor = cursor.getIntValue(COL_TEXT_COLOR)
-            val backgroundColor = cursor.getIntValue(COL_BACKGROUND_COLOR)
-            val primaryColor = cursor.getIntValue(COL_PRIMARY_COLOR)
-            val appIconColor = cursor.getIntValue(COL_APP_ICON_COLOR)
-            val navigationBarColor = cursor.getIntValueOrNull(COL_NAVIGATION_BAR_COLOR) ?: INVALID_NAVIGATION_BAR_COLOR
-            val lastUpdatedTS = cursor.getIntValue(COL_LAST_UPDATED_TS)
-            return SharedTheme(textColor, backgroundColor, primaryColor, appIconColor, navigationBarColor, lastUpdatedTS)
+            try {
+                val textColor = cursor.getIntValue(COL_TEXT_COLOR)
+                val backgroundColor = cursor.getIntValue(COL_BACKGROUND_COLOR)
+                val primaryColor = cursor.getIntValue(COL_PRIMARY_COLOR)
+                val accentColor = cursor.getIntValue(COL_ACCENT_COLOR)
+                val appIconColor = cursor.getIntValue(COL_APP_ICON_COLOR)
+                val navigationBarColor = cursor.getIntValueOrNull(COL_NAVIGATION_BAR_COLOR) ?: INVALID_NAVIGATION_BAR_COLOR
+                val lastUpdatedTS = cursor.getIntValue(COL_LAST_UPDATED_TS)
+                return SharedTheme(textColor, backgroundColor, primaryColor, appIconColor, navigationBarColor, lastUpdatedTS, accentColor)
+            } catch (e: Exception) {
+            }
         }
     }
     return null
@@ -427,9 +455,14 @@ fun Context.getSharedThemeSync(cursorLoader: CursorLoader): SharedTheme? {
 
 fun Context.getMyContentProviderCursorLoader() = CursorLoader(this, MyContentProvider.MY_CONTENT_URI, null, null, null, null)
 
-fun Context.getMyContactsCursor() = CursorLoader(this, MyContactsContentProvider.CONTACTS_CONTENT_URI, null, null, null, null)
-
-fun Context.getMyFavoriteContactsCursor() = CursorLoader(this, MyContactsContentProvider.CONTACTS_CONTENT_URI, null, MyContactsContentProvider.FAVORITES_ONLY, null, null)
+fun Context.getMyContactsCursor(favoritesOnly: Boolean, withPhoneNumbersOnly: Boolean) = try {
+    val getFavoritesOnly = if (favoritesOnly) "1" else "0"
+    val getWithPhoneNumbersOnly = if (withPhoneNumbersOnly) "1" else "0"
+    val args = arrayOf(getFavoritesOnly, getWithPhoneNumbersOnly)
+    CursorLoader(this, MyContactsContentProvider.CONTACTS_CONTENT_URI, null, null, args, null)
+} catch (e: Exception) {
+    null
+}
 
 fun Context.getDialogTheme() = if (baseConfig.backgroundColor.getContrastColor() == Color.WHITE) R.style.MyDialogTheme_Dark else R.style.MyDialogTheme
 
@@ -458,7 +491,29 @@ fun Context.getUriMimeType(path: String, newUri: Uri): String {
 
 fun Context.isThankYouInstalled() = false
 
-fun Context.isAProApp() =  true
+fun Context.isOrWasThankYouInstalled(): Boolean {
+    return when {
+        baseConfig.hadThankYouInstalled -> true
+        isThankYouInstalled() -> {
+            baseConfig.hadThankYouInstalled = true
+            true
+        }
+        else -> false
+    }
+}
+
+fun Context.isAProApp() = true
+
+fun Context.getCustomizeColorsString(): String {
+    val textId = if (isOrWasThankYouInstalled()) {
+        R.string.customize_colors
+    } else {
+        R.string.customize_colors_locked
+    }
+
+    return getString(textId)
+}
+
 fun Context.isPackageInstalled(pkgName: String): Boolean {
     return try {
         packageManager.getPackageInfo(pkgName, 0)
@@ -522,13 +577,17 @@ fun Context.formatSecondsToTimeString(totalSeconds: Int): String {
     return result
 }
 
-fun Context.getFormattedMinutes(minutes: Int, showBefore: Boolean = true) = getFormattedSeconds(if (minutes <= 0) minutes else minutes * 60, showBefore)
+fun Context.getFormattedMinutes(minutes: Int, showBefore: Boolean = true) = getFormattedSeconds(if (minutes == -1) minutes else minutes * 60, showBefore)
 
 fun Context.getFormattedSeconds(seconds: Int, showBefore: Boolean = true) = when (seconds) {
     -1 -> getString(R.string.no_reminder)
     0 -> getString(R.string.at_start)
     else -> {
         when {
+            seconds < 0 && seconds > -60 * 60 * 24 -> {
+                val minutes = -seconds / 60
+                getString(R.string.during_day_at).format(minutes / 60, minutes % 60)
+            }
             seconds % YEAR_SECONDS == 0 -> {
                 val base = if (showBefore) R.plurals.years_before else R.plurals.by_years
                 resources.getQuantityString(base, seconds / YEAR_SECONDS, seconds / YEAR_SECONDS)
@@ -561,18 +620,16 @@ fun Context.getFormattedSeconds(seconds: Int, showBefore: Boolean = true) = when
     }
 }
 
-fun Context.getDefaultAlarmUri(type: Int) = RingtoneManager.getDefaultUri(if (type == ALARM_SOUND_TYPE_NOTIFICATION) RingtoneManager.TYPE_NOTIFICATION else RingtoneManager.TYPE_ALARM)
-
 fun Context.getDefaultAlarmTitle(type: Int): String {
     val alarmString = getString(R.string.alarm)
     return try {
-        RingtoneManager.getRingtone(this, getDefaultAlarmUri(type))?.getTitle(this) ?: alarmString
+        RingtoneManager.getRingtone(this, RingtoneManager.getDefaultUri(type))?.getTitle(this) ?: alarmString
     } catch (e: Exception) {
         alarmString
     }
 }
 
-fun Context.getDefaultAlarmSound(type: Int) = AlarmSound(0, getDefaultAlarmTitle(type), getDefaultAlarmUri(type).toString())
+fun Context.getDefaultAlarmSound(type: Int) = AlarmSound(0, getDefaultAlarmTitle(type), RingtoneManager.getDefaultUri(type).toString())
 
 fun Context.grantReadUriPermission(uriString: String) {
     try {
@@ -590,7 +647,8 @@ fun Context.storeNewYourAlarmSound(resultData: Intent): AlarmSound {
     }
 
     val token = object : TypeToken<ArrayList<AlarmSound>>() {}.type
-    val yourAlarmSounds = Gson().fromJson<ArrayList<AlarmSound>>(baseConfig.yourAlarmSounds, token) ?: ArrayList()
+    val yourAlarmSounds = Gson().fromJson<ArrayList<AlarmSound>>(baseConfig.yourAlarmSounds, token)
+        ?: ArrayList()
     val newAlarmSoundId = (yourAlarmSounds.maxBy { it.id }?.id ?: YOUR_ALARM_SOUNDS_MIN_ID) + 1
     val newAlarmSound = AlarmSound(newAlarmSoundId, filename, uri.toString())
     if (yourAlarmSounds.firstOrNull { it.uri == uri.toString() } == null) {
@@ -982,4 +1040,10 @@ fun Context.isNumberBlocked(number: String, blockedNumbers: ArrayList<BlockedNum
 
     val numberToCompare = number.trimToComparableNumber()
     return blockedNumbers.map { it.numberToCompare }.contains(numberToCompare) || blockedNumbers.map { it.number }.contains(numberToCompare)
+}
+
+fun Context.copyToClipboard(text: String) {
+    val clip = ClipData.newPlainText(getString(R.string.simple_commons), text)
+    (getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager).setPrimaryClip(clip)
+    toast(R.string.value_copied_to_clipboard)
 }

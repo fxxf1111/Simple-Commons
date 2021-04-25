@@ -209,6 +209,8 @@
     <string name="background_color">배경 색상</string>
     <string name="text_color">텍스트 색상</string>
     <string name="primary_color">주요 색상(테마)</string>
+    <string name="accent_color_white">Accent color of white theme</string>
+    <string name="accent_color_black_and_white">Accent color of Black &amp; White theme</string>
     <string name="foreground_color">그리기 색상</string>
     <string name="app_icon_color">앱 아이콘 색상</string>
     <string name="bottom_navigation_bar_color">네비게이션 바 색상</string>
@@ -238,6 +240,7 @@
     <string name="dark_theme">Dark</string>
     <string name="solarized">Solarized</string>
     <string name="dark_red">Dark red</string>
+    <string name="white">White</string>
     <string name="black_white">Black &amp; White</string>
     <string name="custom">사용자 정의</string>
     <string name="shared">공유</string>
@@ -267,6 +270,10 @@
     <string name="print">인쇄</string>
     <string name="create_shortcut">바로가기 생성</string>
     <string name="add_number_to_contact">Add number to contact</string>
+    <string name="view_contact_details">View contact details</string>
+    <string name="call_from_sim_1">Call from SIM 1</string>
+    <string name="call_from_sim_2">Call from SIM 2</string>
+    <string name="toggle_filename">파일 이름 보기</string>
 
     <!-- Sorting -->
     <string name="sort_by">정렬 방식</string>
@@ -446,12 +453,16 @@
     <string name="your_sounds">사용자 소리</string>
     <string name="add_new_sound">소리 추가</string>
     <string name="no_sound">소리 없음</string>
+    <string name="during_day_at_hh_mm">During the day at hh:mm</string>
+    <string name="during_day_at">During the day at %02d:%02d</string>
 
     <!-- Settings -->
     <string name="settings">설정</string>
     <string name="purchase_simple_thank_you">심플 Thank You 구매하기</string>
     <string name="customize_colors">테마 및 색상 설정</string>
+    <string name="customize_colors_locked">테마 및 색상 설정 (Locked)</string>
     <string name="customize_widget_colors">위젯 색상 설정</string>
+    <string name="customize_notifications">Customize notifications</string>
     <string name="use_english_language">영어로 언어 전환</string>
     <string name="show_hidden_items">숨김 항목 보이기</string>
     <string name="font_size">폰트 크기</string>
@@ -483,6 +494,7 @@
     <string name="settings_exported_successfully">설정 내보내기 완료</string>
     <string name="settings_imported_successfully">설정 가져오기 완료</string>
     <string name="start_name_with_surname">성을 먼저 표시</string>
+    <string name="clear_cache">Clear cache</string>
 
     <!-- Setting sections -->
     <string name="visibility">표시</string>
@@ -727,6 +739,7 @@
     <string name="why_upgrade_no_ads">광고 없음</string>
     <string name="why_upgrade_no_internet_access">인터넷 차단</string>
     <string name="why_upgrade_footer">불만족시 + 100% 환불제도</string>
+    <string name="why_upgrade_improved_design">Improved design</string>
 
     <!-- Gallery Pro -->
     <string name="why_upgrade_advanced_photo_editor">고급 사진 편집 앱</string>
@@ -745,6 +758,7 @@
     <string name="why_upgrade_duplicate_contact_merging">중복된 연락처 덮어쓰기 기능 개선 </string>
     <string name="why_upgrade_font_size_customization">글꼴 크기 설정 가능 </string>
     <string name="why_upgrade_private_contact_sharing">사용자 선택 시, 비공개로 연락처 공유할 수 있음</string>
+    <string name="why_upgrade_customizable_contact_ringtones">Customizable contact ringtones</string>
 
     <!-- Notes Pro -->
     <string name="why_upgrade_checklists">체크리스트</string>

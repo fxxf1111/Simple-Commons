@@ -4,19 +4,24 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.app.role.RoleManager
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.DocumentsContract
+import android.provider.Settings
 import android.telecom.TelecomManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.util.Pair
@@ -127,12 +132,29 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
 
     fun updateStatusbarColor(color: Int) {
         window.statusBarColor = color.darkenColor()
+
+        if (isMarshmallowPlus()) {
+            if (color.getContrastColor() == 0xFF333333.toInt()) {
+                window.decorView.systemUiVisibility = window.decorView.systemUiVisibility.addBit(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+            } else {
+                window.decorView.systemUiVisibility = window.decorView.systemUiVisibility.removeBit(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+            }
+        }
     }
 
     fun updateNavigationBarColor(color: Int = baseConfig.navigationBarColor) {
         if (baseConfig.navigationBarColor != INVALID_NAVIGATION_BAR_COLOR) {
             try {
-                window.navigationBarColor = color
+                val colorToUse = if (color == -2) -1 else color
+                window.navigationBarColor = colorToUse
+
+                if (isOreoPlus()) {
+                    if (color.getContrastColor() == 0xFF333333.toInt()) {
+                        window.decorView.systemUiVisibility = window.decorView.systemUiVisibility.addBit(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
+                    } else {
+                        window.decorView.systemUiVisibility = window.decorView.systemUiVisibility.removeBit(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
+                    }
+                }
             } catch (ignored: Exception) {
             }
         }
@@ -297,6 +319,22 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
         }
     }
 
+    fun handleCustomizeColorsClick() {
+        if (isOrWasThankYouInstalled()) {
+            startCustomizationActivity()
+        } else {
+            launchPurchaseThankYouIntent()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun launchCustomizeNotificationsIntent() {
+        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+            putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+            startActivity(this)
+        }
+    }
+
     // synchronous return value determines only if we are showing the SAF dialog, callback result tells if the SD or OTG permission has been granted
     fun handleSAFDialog(path: String, callback: (success: Boolean) -> Unit): Boolean {
         return if (!packageName.startsWith("com.simplemobiletools")) {
@@ -320,13 +358,16 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
         funAfterSAFPermission = callback
         WritePermissionDialog(this, true) {
             Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-                if (resolveActivity(packageManager) == null) {
+                try {
+                    startActivityForResult(this, OPEN_DOCUMENT_TREE_OTG)
+                    return@apply
+                } catch (e: Exception) {
                     type = "*/*"
                 }
 
-                if (resolveActivity(packageManager) != null) {
+                try {
                     startActivityForResult(this, OPEN_DOCUMENT_TREE_OTG)
-                } else {
+                } catch (e: Exception) {
                     toast(R.string.unknown_error_occurred)
                 }
             }
@@ -565,10 +606,12 @@ abstract class BaseSimpleActivity : AppCompatActivity() {
             }
         } else {
             Intent(TelecomManager.ACTION_CHANGE_DEFAULT_DIALER).putExtra(TelecomManager.EXTRA_CHANGE_DEFAULT_DIALER_PACKAGE_NAME, packageName).apply {
-                if (resolveActivity(packageManager) != null) {
+                try {
                     startActivityForResult(this, REQUEST_CODE_SET_DEFAULT_DIALER)
-                } else {
+                } catch (e: ActivityNotFoundException) {
                     toast(R.string.no_app_found)
+                } catch (e: Exception) {
+                    showErrorToast(e)
                 }
             }
         }
